@@ -1,0 +1,3 @@
+numpy==1.13.0
+intpy==0.1.3
+pyfenv==0.5
