@@ -14,7 +14,9 @@
 - Dirceu Maraschin Jr.
 - Lucas Mendes Tortelli
 
-# Depencies
-[FENV]: https://github.com/ldo/pyfenv - Automatic Installing
+# Dependencies
+- Automatic Installing
+[FENV](https://github.com/ldo/pyfenv)
+
 
 # References
