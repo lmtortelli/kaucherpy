@@ -1,7 +1,7 @@
-# core/__init__.py
+# ireal/__init__.py
 #
-# Copyright 2017 Lucas Mendes Tortelli <lmtortelli@ufpel.edu.br,
-# Dirceu Maraschin Jr <dirceu_maraschin@hotmail.com>
+# Copyright 2008 Rafael Menezes Barreto <rmb3@cin.ufpe.br,
+# rafaelbarreto87@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 2
@@ -18,14 +18,14 @@
 # MA 02110-1301, USA.
 
 
-"""Kaucher Arithmetic Core sub-package
+"""IReal type sub-package
 
-This sub-package organizes the code of support for Kaucher Arithmetic package.
+All the stuff related to the IReal type is organized here.
 
-It was developed in CDTec/UFPel (Brazil) by Lucas Mendes Tortelli and Dirceu Maraschin Jr.
-and it's free software.
+It was developed in CIn/UFPE (Brazil) by Rafael Menezes Barreto
+<rmb3@cin.ufpe.br, rafaelbarreto87@gmail.com> and it's free software.
 """
 
 
-from kaucherpy.core import Round
-from kaucherpy.core import fenv
+from kaucherpy.kaucher import error
+from kaucherpy.kaucher.Kaucher import *
