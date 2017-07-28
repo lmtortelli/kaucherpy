@@ -13,3 +13,8 @@
 # Authors:
 - Dirceu Maraschin Jr.
 - Lucas Mendes Tortelli
+
+# Depencies
+[FENV]: https://github.com/ldo/pyfenv - Automatic Installing
+
+# References
