@@ -13,6 +13,8 @@ class Kaucher(object):
 
 
     def __init__(self,lower,upper=None):
+
+
         if(upper is None):
             self.lower = np.float64(lower)
             self.upper = np.float64(lower)

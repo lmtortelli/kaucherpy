@@ -1,4 +1,4 @@
-from fenv import *
+import fenv
 
 __all__ = [
     "Round"
