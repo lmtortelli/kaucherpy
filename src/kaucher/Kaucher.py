@@ -2,6 +2,9 @@ import numpy as np
 import sys
 
 from kaucherpy.core.Round import *
+from kaucherpy.support.error import IntervalError
+from kaucherpy.support.error import TypeIntervalError
+from kaucherpy.support.error import UndefinedValueIntervalError 
 
 __all__ = [
     "Kaucher"
@@ -10,17 +13,40 @@ __all__ = [
 class Kaucher(object):
     __lower = 0.0
     __upper = 0.0
+    __isEmpty = False
 
-
-    def __init__(self,lower,upper=None):
-
-
-        if(upper is None):
+    def __init__(self,lower=None,upper=None):
+        if(upper == None and lower == None):
+            self.upper = np.nan
+            self.lower = np.nan
+            self.isEmpty = True
+        
+        elif(upper is None):
             self.lower = np.float64(lower)
             self.upper = np.float64(lower)
         else:
             self.lower = np.float64(lower)
             self.upper = np.float64(upper)
+        
+
+
+    @property
+    def lower(self):
+        return self.lower
+    @property
+    def upper(self):
+        return self.upper
+
+    @lower.setter
+    def lower(self,value):
+        self.lower = np.float64(value)
+        self.isEmpty = False
+    
+    @upper.setter
+    def upper(self,value):
+        self.upper = np.float64(value)
+        self.isEmpty = False
+
 
     def __str__(self):
         return "["+str(self.lower)+" , "+str(self.upper)+"]"
@@ -36,6 +62,12 @@ class Kaucher(object):
 
     def lower(self):
         return self.lower
+
+    def setEmpty(self,v):
+        self.__isEmpty = v
+
+    def isEmpty(self,):
+        return self.__isEmpty
 
     def __add__(self,other):
         other = self.__checkValue(other)
@@ -255,6 +287,13 @@ class Kaucher(object):
         else:
             return False
 
+
+    def __checkValue(self,other):
+        self.__validateDefinedValue(other)
+        if(type(other) is not Kaucher):
+            other = Kaucher(other)
+        return other
+
     __radd__ = __add__
     __rsub__ = __sub__
     __rmul__ = __mul__
@@ -263,25 +302,15 @@ class Kaucher(object):
     __rand__ = __and__
     __rpow__ = __pow__
 
-    def __checkValue(self,other):
-        if(type(other) is not Kaucher):
-            other = Kaucher(other)
-        return other
-
-
 
 #a = Kaucher(2.0,3.0)
 #b = Kaucher(2.5)
 #d = Kaucher(5.0)
 #c = 2.5
-
 #print d > b
 #print b in a
 #print (c in a)
 #print d in a
-
-
-
 #print (a==b)
 #print (a==a)
 #print (b==2.5)

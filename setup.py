@@ -71,7 +71,9 @@ if __name__ == "__main__":
         packages=[
             "kaucherpy",
             "kaucherpy.kaucher",
-            "kaucherpy.core"
+            "kaucherpy.core",
+            "kaucherpy.support",
+            "kaucherpy.utils"
         ],
         package_dir={
             "kaucherpy" : "src"

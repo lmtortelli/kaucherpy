@@ -28,4 +28,4 @@ It was developed in CIn/UFPE (Brazil) by Rafael Menezes Barreto
 
 
 #from kaucherpy.kaucher import error
-from kaucherpy.kaucher.Kaucher import *
+#from kaucherpy.kaucher.Kaucher import *

@@ -51,7 +51,9 @@ It was developed in CIn/UFPE (Brazil) by Rafael Menezes Barreto
 """
 
 from kaucherpy.kaucher import *
+from kaucherpy.kaucher.Kaucher import *
 from kaucherpy.core import *
+from kaucherpy.support import *
 
 
 def _test():
