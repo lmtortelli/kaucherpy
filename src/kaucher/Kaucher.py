@@ -11,10 +11,7 @@ __all__ = [
 ]
 
 class Kaucher(object):
-    __lower = 0.0
-    __upper = 0.0
-    __isEmpty = False
-
+    
     def __init__(self,lower=None,upper=None):
         if(upper == None and lower == None):
             self.upper = np.nan
@@ -22,30 +19,45 @@ class Kaucher(object):
             self.isEmpty = True
         
         elif(upper is None):
+            self.isEmpty = False
             self.lower = np.float64(lower)
             self.upper = np.float64(lower)
         else:
+            self.isEmpty = False
             self.lower = np.float64(lower)
             self.upper = np.float64(upper)
         
 
+    #IMPLEMENTAR PARA GANTIR VALORES NUMERICOS PARA KAUCHER
+    def __set_limits(self):
+        return 0
 
     @property
     def lower(self):
-        return self.lower
+        return self.__lower
+
     @property
     def upper(self):
-        return self.upper
+        return self.__upper
+
+    @property
+    def isEmpty(self):
+        return self.__isEmpty
+
+    @isEmpty.setter
+    def isEmpty(self,value):
+        self.__isEmpty = value
+
 
     @lower.setter
     def lower(self,value):
-        self.lower = np.float64(value)
-        self.isEmpty = False
+        self.__lower = np.float64(value)
+        self.__isEmpty = False
     
     @upper.setter
     def upper(self,value):
-        self.upper = np.float64(value)
-        self.isEmpty = False
+        self.__upper = np.float64(value)
+        self.__isEmpty = False
 
 
     def __str__(self):
@@ -56,18 +68,6 @@ class Kaucher(object):
 
     def __getitem__(self):
         return np.array([self.lower,self.upper])
-
-    def upper(self):
-        return self.upper
-
-    def lower(self):
-        return self.lower
-
-    def setEmpty(self,v):
-        self.__isEmpty = v
-
-    def isEmpty(self,):
-        return self.__isEmpty
 
     def __add__(self,other):
         other = self.__checkValue(other)
@@ -208,6 +208,31 @@ class Kaucher(object):
 
         return Kaucher(lower,upper)
 
+
+    def __truediv__(self,other):
+        other = self.__checkValue(other)
+        if(other.lower==0 or other.upper == 0):
+            raise IntervalError
+        else:
+            Round.set_down_rounding()
+            lower = self.lower/other.upper
+            Round.set_up_rounding()
+            upper = self.upper/other.lower
+            Round.set_normal_rounding()
+            return Kaucher(lower,upper)
+
+    def __rtruediv__(self,other):
+        other = self.__checkValue(other)
+        if(self.lower==0 or self.upper == 0):
+            raise Exception("Division by Zero")
+        else:
+            Round.set_down_rounding()
+            lower = other.lower/self.upper
+            Round.set_up_rounding()
+            upper = other.upper/self.lower
+            Round.set_normal_rounding()
+            return Kaucher(lower,upper)
+
     def __div__(self,other):
         other = self.__checkValue(other)
         if(other.lower==0 or other.upper == 0):
@@ -289,15 +314,165 @@ class Kaucher(object):
 
 
     def __checkValue(self,other):
-        self.__validateDefinedValue(other)
         if(type(other) is not Kaucher):
             other = Kaucher(other)
+        self.__validateDefinedValue(other)
         return other
 
-    __radd__ = __add__
-    __rsub__ = __sub__
-    __rmul__ = __mul__
-    __rdiv__ = __div__
+    def __validateDefinedValue(self,other):
+        if(other.isEmpty or self.isEmpty):
+            raise UndefinedValueIntervalError("The interval are empty, this a invalid operation")   
+
+
+    def __radd__(self,other):
+        other = self.__checkValue(other)
+
+        Round.set_down_rounding()
+        lower = other.lower+self.lower
+        Round.set_up_rounding()
+        Round.get_rounding()
+        upper = other.upper+self.upper
+        Round.set_normal_rounding()
+        return Kaucher(lower,upper)
+
+    def __rsub__(self,other):
+        other = self.__checkValue(other)
+
+        Round.set_down_rounding()
+        lower = other.lower-self.upper
+        Round.set_up_rounding()
+        upper = upper.upper-self.lower
+        Round.set_normal_rounding()
+
+        return Kaucher(lower,upper)
+
+    def __rmul__(self,other):
+        other = self.__checkValue(other)
+        lower = np.float64(0)
+        upper = np.float64(0)
+        if(other.lower <= np.float64(0) and other.upper <= np.float64(0)):
+            if(self.lower <= np.float64(0) and self.upper <= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.upper*self.upper
+                Round.set_up_rounding()
+                upper = other.lower*self.lower
+                Round.set_normal_rounding()
+
+            elif(self.lower < np.float64(0) < self.upper):
+                Round.set_down_rounding()
+                lower = other.lower*self.upper
+                Round.set_up_rounding()
+                upper = other.lower*self.lower
+                Round.set_normal_rounding()
+
+            elif(self.lower >= np.float64(0) and self.upper >= np.float64(0)):
+                Round.set_down_rounding()
+                lower = self.lower*other.upper
+                Round.set_up_rounding()
+                upper = self.upper*other.lower
+                Round.set_normal_rounding()
+
+            elif(self.upper < 0 < self.lower):
+                Round.set_down_rounding()
+                lower = self.upper*other.upper
+                Round.set_up_rounding()
+                upper = self.upper*other.lower
+                Round.set_normal_rounding()
+
+        elif(other.lower < np.float64(0) < other.upper):
+            if(self.lower <= np.float64(0) and self.upper <= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.upper*self.lower
+                Round.set_up_rounding()
+                upper = other.lower*self.lower
+                Round.set_normal_rounding()
+
+            elif(self.lower < np.float64(0) < self.upper):
+                Round.set_down_rounding()
+                lower = min(other.lower*self.upper,other.upper*self.lower)
+                Round.set_up_rounding()
+                upper = max(other.lower*self.lower,other.upper*self.upper)
+                Round.set_normal_rounding()
+
+            elif(self.lower >= np.float64(0) and self.upper >= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.lower*self.upper
+                Round.set_up_rounding()
+                upper = other.upper*self.upper
+                Round.set_normal_rounding()
+
+            elif(self.upper < 0 < self.lower):
+                lower = np.float64(0)
+                upper = np.float64(0)
+
+        elif(other.lower >= np.float64(0) and other.upper >= np.float64(0)):
+            if(self.lower <= np.float64(0) and self.upper <= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.upper*self.lower
+                Round.set_up_rounding()
+                upper = other.lower*self.upper
+                Round.set_normal_rounding()
+
+            elif(self.lower < np.float64(0) < self.upper):
+                Round.set_down_rounding()
+                lower = other.upper*self.lower
+                Round.set_up_rounding()
+                upper = other.upper*self.upper
+                Round.set_normal_rounding()
+
+            elif(self.lower >= np.float64(0) and self.upper >= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.lower*self.lower
+                Round.set_up_rounding()
+                upper = other.upper*self.upper
+                Round.set_normal_rounding()
+
+            elif(self.upper < 0 < self.lower):
+                Round.set_down_rounding()
+                lower = other.lower*self.lower
+                Round.set_up_rounding()
+                upper = other.lower*self.upper
+                Round.set_normal_rounding()
+
+        elif(other.upper < 0 < other.lower):
+            if(self.lower <= np.float64(0) and self.upper <= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.upper*self.upper
+                Round.set_up_rounding()
+                upper = other.lower*self.upper
+                Round.set_normal_rounding()
+
+            elif(self.lower < np.float64(0) < self.upper):
+                lower = np.float64(0)
+                upper = np.float64(0)
+            elif(self.lower >= np.float64(0) and self.upper >= np.float64(0)):
+                Round.set_down_rounding()
+                lower = other.lower*self.lower
+                Round.set_up_rounding()
+                upper = other.upper*self.lower
+                Round.set_normal_rounding()
+
+            elif(self.upper < 0 < self.lower):
+                Round.set_down_rounding()
+                lower = max(other.lower*self.lower,other.upper*self.upper)
+                Round.set_up_rounding()
+                upper = min(other.lower*self.upper,other.upper*self.lower)
+                Round.set_normal_rounding()
+
+        return Kaucher(lower,upper)
+
+    def __rdiv__(self,other):
+        other = self.__checkValue(other)
+        if(self.lower==0 or self.upper == 0):
+            raise Exception("Division by Zero")
+        else:
+            Round.set_down_rounding()
+            lower = other.lower/self.upper
+            Round.set_up_rounding()
+            upper = other.upper/self.lower
+            Round.set_normal_rounding()
+            return Kaucher(lower,upper)
+
     __ror__ = __or__
     __rand__ = __and__
     __rpow__ = __pow__

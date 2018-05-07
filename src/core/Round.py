@@ -8,7 +8,7 @@ class Round(object):
 
 	@staticmethod
 	def set_down_rounding():
-		ROUND.set(fROUND.DOWNWARD)
+		ROUND.set(ROUND.DOWNWARD)
 
 	@staticmethod
 	def set_up_rounding():
