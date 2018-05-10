@@ -27,6 +27,4 @@ It was developed in CIn/UFPE (Brazil) by Rafael Menezes Barreto
 """
 
 
-from kaucherpy.utils.qualitativeMtds import *
-#from kaucherpy.kaucher.Kaucher import *
-
+from kaucherpy.support.error import *
