@@ -15,34 +15,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from kaucherpy.kaucher.Kaucher import *
+from kaucherpy import Kaucher
 import numpy as np
 
 #Calculates Relative Error
-def relativeError(xInt,xReal):
-    try:
-        r = abs((xReal - centerI(xInt))/xReal)
-        error = (diameter(xInt))/(2*xInt.lower)
-    except:
-        r = np.nan
-        error =  np.nan
-    return r,error
 
-def absError(xInt,xReal):
-    try:
-        r = abs((xReal - centerI(xInt))/xReal)
-        error = (diameter(xInt)/2)
-    except:
-        r =  np.nan
-        error = np.nan
-    return r,error
+__all__ = ["QualitativeMetrics"]
 
-#Calculates interval diameter
-def diameter(xInt):
-    return xInt.upper - xInt.lower
+class QualitativeMetrics(object):
 
-def centerI(xInt):
-    return (xInt.lower + xInt.upper)/2.0
+    @staticmethod
+    def relativeError(xInt,xReal):
+        try:
+            r = abs((xReal - QualitativeMetrics.centerI(xInt))/xReal)
+            error = (QualitativeMetrics.diameter(xInt))/(2*xInt.lower)
+        except:
+            r = np.nan
+            error =  np.nan
+        return r,error
 
-#Calculates absolute error
+    @staticmethod
+    def absoluteError(xInt,xReal):
+        try:
+            r = abs((xReal - QualitativeMetrics.centerI(xInt))/xReal)
+            error = (QualitativeMetrics.diameter(xInt)/2)
+        except:
+            r =  np.nan
+            error = np.nan
+        return r,error
+
+    #Calculates interval diameter
+    @staticmethod
+    def diameter(xInt):
+        return xInt.upper - xInt.lower
+
+
+    @staticmethod
+    def centerI(xInt):
+        return (xInt.lower + xInt.upper)/2.0
 
