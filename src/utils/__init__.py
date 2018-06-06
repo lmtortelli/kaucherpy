@@ -28,3 +28,4 @@ It was developed in CIn/UFPE (Brazil) by Rafael Menezes Barreto
 
 
 from kaucherpy.utils.QualitativeMetrics import *
+from kaucherpy.utils.KMath import *

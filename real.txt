@@ -1,0 +1,17 @@
+{"ackley": {"dim": 2, "Ymin": 4.440892098500626e-16, "cpu": 0.00012040138244628906, "Low": -15, "High": 30, "N-Steps": 4
+"dixonprice": {"dim": 2, "Ymin": 0.18811730836218743, "cpu": 0.02359914779663086, "Low": -10, "High": 10, "N-Steps": 1213
+"ellipse": {"dim": 2, "Ymin": 0.0, "cpu": 0.0001537799835205078, "Low": -2, "High": 2, "N-Steps": 5
+"griewank": {"dim": 2, "Ymin": 0.0, "cpu": 6.389617919921875e-05, "Low": -600, "High": 600, "N-Steps": 3
+"levy": {"dim": 2, "Ymin": 1.4997597826618576e-32, "cpu": 0.0005788803100585938, "Low": -10, "High": 10, "N-Steps": 21
+"michalewicz": {"dim": 6, "Ymin": -4.163347901891168, "cpu": 0.032096147537231445, "Low": 0, "High": 3.141592653589793, "N-Steps": 1491
+"nesterov": {"dim": 2, "Ymin": 0.0, "cpu": 8.893013000488281e-05, "Low": -2, "High": 2, "N-Steps": 5
+"perm": {"dim": 2, "Ymin": 7.860525575378832e-05, "cpu": 0.10405421257019043, "Low": -2, "High": 2, "N-Steps": 1866
+"powell": {"dim": 2, "Ymin": 0.0, "cpu": 0.00037598609924316406, "Low": -4, "High": 5, "N-Steps": 10
+"powersum": {"dim": 4, "Ymin": 37.43144669927163, "cpu": 0.09815549850463867, "Low": 0, "High": 4, "N-Steps": 2878
+"rastrigin": {"dim": 2, "Ymin": 0.0, "cpu": 5.4836273193359375e-05, "Low": -5.12, "High": 5.12, "N-Steps": 3
+"rosenbrock": {"dim": 2, "Ymin": 0.0, "cpu": 0.00046515464782714844, "Low": -2.4, "High": 2.4, "N-Steps": 25
+"schwefel": {"dim": 2, "Ymin": 2.545527274833148e-05, "cpu": 0.06531357765197754, "Low": -500, "High": 500, "N-Steps": 1570
+"sphere": {"dim": 2, "Ymin": 0.0, "cpu": 4.076957702636719e-05, "Low": -5.12, "High": 5.12, "N-Steps": 3
+"sum2": {"dim": 2, "Ymin": 0.0, "cpu": 4.38690185546875e-05, "Low": -10, "High": 10, "N-Steps": 3
+"trid": {"dim": 6, "Ymin": -30.0, "cpu": 0.00020837783813476562, "Low": -36, "High": 36, "N-Steps": 13
+"zakharov": {"dim": 2, "Ymin": 0.0, "cpu": 8.20159912109375e-05, "Low": -5, "High": 10, "N-Steps": 4}}

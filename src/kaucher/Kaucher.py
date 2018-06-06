@@ -233,7 +233,6 @@ class Kaucher(object):
 
     def __truediv__(self,other):
         other = self.__checkValue(other)
-        print (self.lower*self.upper)
         if(other.lower*other.upper <= 0):
             raise IntervalDivisionByZero()
         else:
@@ -286,7 +285,12 @@ class Kaucher(object):
         return Kaucher(-self.upper,-self.lower)
 
     def __pow__(self,other):
-        return Kaucher(self.lower**other,self.upper**other)
+        if(type(other) is Kaucher):
+            lower = min(self.lower**other.lower,self.lower**other.upper,self.upper**other.lower,self.upper**other.upper)
+            upper = max(self.lower**other.lower,self.lower**other.upper,self.upper**other.lower,self.upper**other.upper)
+            return Kaucher(lower,upper)
+        else:
+            return Kaucher(self.lower**other,self.upper**other)
 
     def __contains__(self,other):
         if(type(other) is not Kaucher):
@@ -364,7 +368,7 @@ class Kaucher(object):
         Round.set_down_rounding()
         lower = other.lower-self.upper
         Round.set_up_rounding()
-        upper = upper.upper-self.lower
+        upper = other.upper-self.lower
         Round.set_normal_rounding()
 
         return Kaucher(lower,upper)
