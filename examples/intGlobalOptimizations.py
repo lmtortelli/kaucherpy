@@ -402,10 +402,12 @@ if __name__ == "__main__":  # standalone test --
     import sys
     import json
 
-    dims = [2]
-    nstep = 2  # 11: 0 .1 .2 .. 1
-    seed = 0
-
+    dims = [2,4,6,8]
+    nstep = 700  # 11: 0 .1 .2 .. 1
+    seed = 1
+    problems = {}
+    init = 50
+    
         # to change these params in sh or ipython, run this.py  a=1  b=None  c=[3] ...
     for arg in sys.argv[1:]:
         exec( arg )
@@ -416,8 +418,7 @@ if __name__ == "__main__":  # standalone test --
 
     #...........................................................................
     for dim in dims:
-        problems = {}
-        init = 1
+
 
         print ("\n# ndtestfuncs dim %d  along the diagonal low .. high corner --" % dim)
         # cmp matlab, anyone ?
@@ -442,6 +443,7 @@ if __name__ == "__main__":  # standalone test --
                 #        func.__name__, dim, Ymin, steps[jmin], lo, hi, Y - Ymin )
                 #print (func.__name__,dim,Ymin,lo,hi,Y-Ymin)
                 #print (problems)
-        file = open("intervalIReal.txt","w") 
-        file.write(json.dumps(problems))
-        file.close()
+    with open("intervalIntpy.txt", 'w') as f:
+        for key, value in problems.items():
+            f.write('%s:%s\n' % (key, value))
+    f.close()

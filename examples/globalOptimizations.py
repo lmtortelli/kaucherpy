@@ -369,10 +369,11 @@ if __name__ == "__main__":  # standalone test --
     import sys
     import json
 
-    dims = [2,4,6]
-    nstep = 5  # 11: 0 .1 .2 .. 1
-    seed = 0
-
+    dims = [2,4,6,8]
+    nstep = 700  # 11: 0 .1 .2 .. 1
+    seed = 1
+    init = 50
+    problems = {}
         # to change these params in sh or ipython, run this.py  a=1  b=None  c=[3] ...
     for arg in sys.argv[1:]:
         exec( arg )
@@ -380,8 +381,8 @@ if __name__ == "__main__":  # standalone test --
     np.set_printoptions( threshold=20, edgeitems=5, linewidth=120, suppress=True,
         formatter = dict( float = lambda x: "%.2g" % x ))  # float arrays %.2g
     np.random.seed(seed)
-    init = 1
-    problems = {}
+
+    
     #...........................................................................
     for dim in dims:
 

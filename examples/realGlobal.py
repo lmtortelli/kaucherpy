@@ -319,24 +319,25 @@ if __name__ == "__main__":  # standalone test --
     import sys
     import json
 
-    dims = [2,4,6]  # , 100]
-    nstep = 300  # 11: 0 .1 .2 .. 1
+    dims = [2,4,6,8]  # , 100]
+    nstep = 700  # 11: 0 .1 .2 .. 1
     seed = 1
+    init = 50
+    problems = {}
 
-        # to change these params in sh or ipython, run this.py  a=1  b=None  c=[3] ...
     for arg in sys.argv[1:]:
         exec( arg )
 
     np.set_printoptions( threshold=20, edgeitems=5, linewidth=120, suppress=True,
         formatter = dict( float = lambda x: "%.2g" % x ))  # float arrays %.2g
     np.random.seed(seed)
-    problems = {}
+    
     #...........................................................................
     for dim in dims:
         print ("# ndtestfuncs dim %d  along the diagonal low .. high corner --",dim)
         # cmp matlab, anyone ?
         
-        init = 50
+        
         # cmp matlab, anyone ?
         print ("PROBLEM | DIM | MIN | LOW | HI | Y - YMIN")
         for step in range(init,nstep):
@@ -358,9 +359,9 @@ if __name__ == "__main__":  # standalone test --
                         problems[func.__name__] = {"dim":dim,"Ymin":Ymin,"cpu":(endTime - startTime),"Low":lo,"High":hi,"N-Steps":step}
         
         
-        file = open("real.txt","w") 
-        file.write(json.dumps(problems))
-        file.close()
+    file = open("real.txt","w") 
+    file.write(json.dumps(problems))
+    file.close()
         #print ()
 
 
