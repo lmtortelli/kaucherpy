@@ -77,7 +77,6 @@ def degToRad(value):
         return rad
     else:
         return IReal(rad)
-    #abaixo: definição da função seno por sin² + cos² = 1
 
 def exp(x):
     return IReal(math.e**x.inf,math.e**x.sup)
