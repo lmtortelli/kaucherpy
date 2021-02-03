@@ -8,6 +8,8 @@
 # Authors:
 - Dirceu Maraschin Jr. @dirceumaraschin
 - Lucas Mendes Tortelli @lmtortelli
+- Aline Brum Loreto
+- Alice Fonseca Finger
 
 # Dependencies
 - Automatic Installing
